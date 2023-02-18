@@ -11,8 +11,8 @@ import * as Yup from "yup";
 export default function AddProcessmodal({addprocess,setAddprocess,selectedRow,getprocessdataList}) {
 
   const formSchema = Yup.object().shape({
-    process: Yup.string().required("This Field is required"),
-    rate: Yup.string().required("This Field is requiredy"),
+    RefProcess: Yup.string().required("This Field is required"),
+    TgtRate: Yup.string().required("This Field is requiredy"),
   });
 
   const formOptions = { resolver: yupResolver(formSchema) };
@@ -89,9 +89,9 @@ export default function AddProcessmodal({addprocess,setAddprocess,selectedRow,ge
               <div className="col-md-12 mb-4 ">
                  <label className="form-label">Process</label>
                  <select  name='RefProcess'
-                 {...register("process")} 
+                 {...register("RefProcess")} 
                  className={`ip-select ${
-                 errors.process ? "is-invalid" : ""}`} required
+                 errors.RefProcess ? "is-invalid" : ""}`} required
                  onChange={(e)=>{
                   handleFormChange(e)
                   setRefProcess(e.target.value)
@@ -109,9 +109,9 @@ export default function AddProcessmodal({addprocess,setAddprocess,selectedRow,ge
               <div className="col-md-12">
                 <label className=""> Rate(/Hour)</label>
                 <input  name='TgtRate'
-                {...register("rate")}
+                {...register("TgtRate")}
                 className={`in-field ${
-                  errors.rate ? "is-invalid" : ""}`} required 
+                  errors.TgtRate ? "is-invalid" : ""}`} required 
                 onChange={(e)=> {
                   handleFormChange(e)
                   setTgRate(e.target.value)

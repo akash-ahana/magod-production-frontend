@@ -1,9 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState,useMemo } from 'react';
 import Table from "react-bootstrap/Table";
-import axios from "axios";
 
-export default function ProcessTable({processdataList,selectedRowFn,selectRow}) {
-  console.log(processdataList) 
+export default function ProcessTable({processdataList,selectedRowFn2,selectRow}) {
+  // const [refprocess,setRefprocess]=useState({...processdataList})
+
+
+  // useMemo(()=>{
+  //   setRefprocess({...processdataList})
+  // },[processdataList])
+
+  // console.log(refprocess) 
+  console.log(selectRow);
  
   return (
     <div className='row mt-1'>
@@ -24,7 +31,7 @@ export default function ProcessTable({processdataList,selectedRowFn,selectRow}) 
   return(
     <>
     <tbody className='tablebody'>
-          <tr onClick={()=>selectedRowFn(item,key)} className={key===selectRow?.index? 'selcted-row-clr':'' }>
+          <tr onClick={()=>selectedRowFn2(item,key)} className={key===selectRow?.index? 'selcted-row-clr':'' }>
              <td>{item.Mprocess}</td>
              <td>{item.TgtRate}</td>
              <td>{item.Id}</td>

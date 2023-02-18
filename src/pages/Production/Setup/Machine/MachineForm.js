@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, {useMemo, useState } from 'react';
 import AddMachine from './AddMachineModal/AddMachine';
 import AddProcessmodal from './AddProcess/AddProcessmodal';
 import axios from "axios";
@@ -6,7 +6,7 @@ import { formatDate } from './Dateconverter';
 import {useGlobalContext} from '../../../../Context/Context'
 import ProcessTable from './ProcessTable';
 
-export default function ({selectedRow}) {
+export default function ({selectedRow,getprocessdataList,processdataList}) {
     const {MachineTabledata} = useGlobalContext()
     const [finaldata,setFinaldata]=React.useState([])
     const [show, setShow] = React.useState(false);
@@ -15,28 +15,18 @@ export default function ({selectedRow}) {
     
     let savemachineInitialState={refNmae:'',manufacturer:'',model:'',working:'',
     reamrks:'',installDate:'',uninstallDate:'',location:'',RegnNo:''}
+    
 
     //SELECT PROCESS TABLE DATA 
     const [selectRow,setSelectRow]=useState({})
     const selectedRowFn=(item,index)=>{
-      let list={...item,index:index}
-      console.log("api call ",item.Mprocess)
+      let list={...processdataList,index:index}
+      // console.log("api call ",item.Mprocess)
       // api call
-      setSelectRow(list)
+      setSelectRow(list);
     }
   
-    //DISPLAY PROCESS DATA
-    const [processdataList,setProcessdataList]=React.useState([])
-    let machine_srl=selectedRow.Machine_srl;
-    const getprocessdataList=()=>{
-     axios.post(
-        "http://172.16.20.61:5000/productionSetup/getProcessForMachine",
-       {
-           Machine_srl:machine_srl
-      }).then((response) => {
-        setProcessdataList(response.data);
-     });
-  }
+    
 
 //DELETE PROCESS
 let mach_srl=selectRow.Machine_srl;
@@ -76,8 +66,6 @@ const deleteProcess=()=>{
         setFinaldata(response.data);
       });
     }
-
-    console.log("Final Data",finaldata)
 
 useMemo(()=>{
   setMachineData({...selectedRow})
@@ -213,7 +201,7 @@ else{
               <div className="col-md-6">
               <div className="col-md-12 ">
                 <label className="">Uninstall Date</label>
-                <input className="in-field"  value={formatDate(machineData.UnistallDate)}
+                <input className="in-field"  value={(machineData.UnistallDate)}
                  type="date"
                 name='uninstallDate' onChange={(e)=>handleMachineChange(e)} />
               </div>

@@ -7,7 +7,7 @@ export default function ThirdModal({modalopen,setModalopen,finalresponse}) {
 
     const handleClose = () => setModalopen(false);
 
-    console.log("IM final response",finalresponse)
+    // console.log("IM final response",finalresponse)
 
   return (
     <div>

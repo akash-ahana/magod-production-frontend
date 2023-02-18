@@ -10,7 +10,7 @@ export default function MachineModal({open,setOpen,formdata,setFormdata}) {
   //   handleC();
   // },[])
 
-  console.log("Im data",formdata.refName)
+  // console.log("Im data",formdata.refName)
 
      const {MachineTabledata} = useGlobalContext()
      const[finalresponse,setFinalresponse]=React.useState("")
@@ -28,9 +28,9 @@ export default function MachineModal({open,setOpen,formdata,setFormdata}) {
           {
           ...formdata
           }).then((response) => {
-          console.log("sent", response)
-          console.log("final response", response.data)
-          setFinalresponse(response.data);
+          // console.log("sent", response)
+          // console.log("final response", response.data)
+          setFinalresponse(response.data);  
           setFormdata(initialState);
           MachineTabledata();
         });
@@ -57,7 +57,7 @@ export default function MachineModal({open,setOpen,formdata,setFormdata}) {
           <Modal.Title>Magod Production Manager</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body>Do you wish to add {formdata.manufacturer} {formdata.model} as {formdata.refName}
+        <Modal.Body>Do you wish to add {formdata.manufacturer},{formdata.model} as {formdata.refName}
         &nbsp; to Magod Machine List?</Modal.Body>
 
         <Modal.Footer>

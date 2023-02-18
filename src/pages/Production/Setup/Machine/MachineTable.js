@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import Table from "react-bootstrap/Table";
-import axios from "axios";
 import {useGlobalContext} from '../../../../Context/Context'
 
-export default function MachineTable({selectedRowFn,selectedRow}) {  
+export default function MachineTable({selectedRowFn,selectedRow,getprocessdataList}) {  
   const {post, setPost,MachineTabledata} = useGlobalContext()
   
    React.useEffect(() => {
     MachineTabledata();
   }, []);
- 
+
+  
   return (
     <div className='row mt-1'>
     <div className='col-md-12 col-sm-12'>
@@ -27,7 +27,8 @@ export default function MachineTable({selectedRowFn,selectedRow}) {
   return(
     <>
      <tbody className='tablebody'>
-          <tr onClick={()=>selectedRowFn(item,key)} className={key===selectedRow?.index? 'selcted-row-clr':'' }  >
+          <tr onClick={()=>{selectedRowFn(item,key)
+            getprocessdataList(item,key)}} className={key===selectedRow?.index? 'selcted-row-clr':'' }  >
              <td>{item.manufacturer}</td>
              <td>{item.Model}</td>
              {
@@ -36,7 +37,7 @@ export default function MachineTable({selectedRowFn,selectedRow}) {
                type="checkbox"
                disabled
                value=""
-               checked={item.working===0 ? false : true}
+               checked={item.Working===0 ? false : true}
                id="flexCheckDefault"/>
               </td>
              }

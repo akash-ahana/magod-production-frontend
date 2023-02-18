@@ -6,6 +6,7 @@ import { useGlobalContext } from '../../../../../Context/Context';
 
 export default function AlertAddprocess({alert,setAlert,processform,selectedRow,getprocessdataList}) {
 
+console.log(processform);
 
     const handleClose = () => {
       setAlert(false)
@@ -27,9 +28,8 @@ export default function AlertAddprocess({alert,setAlert,processform,selectedRow,
           <Modal.Title>Magod Production Manager </Modal.Title>
         </Modal.Header>
 
-        <Modal.Body> Do you wish to add {processform.RefProcess} ({processform.Mprocess}) Target Rate 
-         {processform.TgtRate} / hour added to {selectedRow.refName
-} 
+        <Modal.Body> Do you wish to add {processform.RefProcess},({processform.Mprocess}) Target Rate 
+         {processform.TgtRate} / hour added to {selectedRow.refName} 
       
         </Modal.Body>
 
