@@ -1,12 +1,14 @@
-import React,{useState}from 'react';
+import React,{useState,useEffect}from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import axios from "axios";
 import { useGlobalContext } from '../../../../../Context/Context';
 
-export default function AlertAddprocess({alert,setAlert,processform,selectedRow,getprocessdataList}) {
+export default function AlertAddprocess({alert,setAlert,processform,setProcessform,selectedRow,getprocessdataList}) {
+  let addprocessState={RefProcess:'',TgtRate:'',Machine_srl:'',Mprocess:''}
 
 console.log(processform);
+
 
     const handleClose = () => {
       setAlert(false)
@@ -17,7 +19,9 @@ console.log(processform);
         }).then((response) => {
         console.log("sent", response)
         console.log("final response", response.data);
-        getprocessdataList();
+        console.log(selectedRow)
+        getprocessdataList(selectedRow.Machine_srl);
+        setProcessform(addprocessState)
       });
     };
 

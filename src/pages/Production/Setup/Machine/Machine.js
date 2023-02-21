@@ -5,27 +5,36 @@ import axios from "axios";
 
 
 export default function Machine() {
-  const [selectedRow,setSelectedRow]=useState({})
+  const [selectedRow,setSelectedRow]=useState({refName:'',remarks:'',installDate:'',uninstallDate:'',targetRate:'',Working:'',location:'',RegnNo:''})
   const [machine_srl,setMachine_srl]=React.useState('')
   const [processdataList,setProcessdataList]=useState([])
 
   const selectedRowFn=(item,index)=>{
     let list={...item,index:index}
+    
 
-    console.log("api call",item.Machine_srl)
+    // console.log("api call",item.Machine_srl)
     setMachine_srl(item.Machine_srl)
     // api call
-    setSelectedRow(list)
-  }
 
-  console.log("Machine",machine_srl);
+    let {refName,manufacturer,Model,Machine_Type,remarks,InstallDate,UnistallDate,TgtRate,Working,location,RegnNo,Machine_srl}=list
+    location=location ? location : ''
+    remarks=remarks ? remarks : ''
+    InstallDate=InstallDate ? InstallDate : ''
+    UnistallDate=UnistallDate ? UnistallDate : ''
+    TgtRate=TgtRate ? TgtRate : ''
+    RegnNo=RegnNo ? RegnNo : ''
+    Working=Working ? Working : 0
+    setSelectedRow({refName,manufacturer,Model,Machine_Type,remarks,InstallDate,UnistallDate,TgtRate,Working,location,RegnNo,Machine_srl,index:index})
+  }
+  // console.log("Machine",machine_srl);
   const getprocessdataList=()=>{
    axios.post(
       "http://172.16.20.61:5000/productionSetup/getProcessForMachine",
      {
          Machine_srl:machine_srl
     }).then((response) => {
-      console.log('data',response)
+      // console.log('data',response)
       setProcessdataList(response.data);
    });
 }

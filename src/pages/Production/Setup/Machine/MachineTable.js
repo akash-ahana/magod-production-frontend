@@ -26,9 +26,9 @@ export default function MachineTable({selectedRowFn,selectedRow,getprocessdataLi
 {post.map((item,key)=>{
   return(
     <>
+    {/* {console.log(selectedRow?.index)} */}
      <tbody className='tablebody'>
-          <tr onClick={()=>{selectedRowFn(item,key)
-            getprocessdataList(item,key)}} className={key===selectedRow?.index? 'selcted-row-clr':'' }  >
+          <tr onClick={()=>selectedRowFn(item,key)} className={key===selectedRow?.index? 'selcted-row-clr':'' }  >
              <td>{item.manufacturer}</td>
              <td>{item.Model}</td>
              {

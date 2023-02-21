@@ -1,4 +1,4 @@
-import React, {useMemo, useState } from 'react';
+import React, {useMemo, useState ,useEffect} from 'react';
 import AddMachine from './AddMachineModal/AddMachine';
 import AddProcessmodal from './AddProcess/AddProcessmodal';
 import axios from "axios";
@@ -6,39 +6,70 @@ import { formatDate } from './Dateconverter';
 import {useGlobalContext} from '../../../../Context/Context'
 import ProcessTable from './ProcessTable';
 
-export default function ({selectedRow,getprocessdataList,processdataList}) {
+export default function ({selectedRow}) {
     const {MachineTabledata} = useGlobalContext()
     const [finaldata,setFinaldata]=React.useState([])
     const [show, setShow] = React.useState(false);
     const [addprocess,setAddprocess]=React.useState(false)
-    const [machineData,setMachineData]=useState({...selectedRow})
+    const [machineData,setMachineData]=useState({})
     
-    let savemachineInitialState={refNmae:'',manufacturer:'',model:'',working:'',
-    reamrks:'',installDate:'',uninstallDate:'',location:'',RegnNo:''}
+    let savemachineInitialState={refNmae:'',manufacturer:'',model:'',Working:0,TgtRate:'',
+    reamrks:'',InstallDate:'',UnistallDate:'',location:'',RegnNo:''}
     
+    console.log("required",selectedRow)
+
 
     //SELECT PROCESS TABLE DATA 
+    const [mach_srl,setMarh_srl]=useState('')
+    const [process,setProcess]=useState('')
     const [selectRow,setSelectRow]=useState({})
-    const selectedRowFn=(item,index)=>{
+
+    const selectedRowFun=(item,index)=>{
       let list={...processdataList,index:index}
       // console.log("api call ",item.Mprocess)
+      setMarh_srl(item.Machine_srl);
+      setProcess(item.Mprocess);
       // api call
       setSelectRow(list);
     }
   
-    
 
+ //PROCESSLIST
+ const [processdataList,setProcessdataList]=useState([])
+  // useMemo(()=>{
+  //   setRefprocess({...processdataList})
+  // },[processdataList])
+
+  // console.log(refprocess) 
+  useEffect(()=>{
+    getprocessdataList(selectedRow.Machine_srl)
+  },[selectedRow])
+
+  const getprocessdataList=(machine_srl)=>{
+    axios.post(
+       "http://172.16.20.61:5000/productionSetup/getProcessForMachine",
+      {
+          Machine_srl:machine_srl
+     }).then((response) => {
+      //  console.log('data',response)
+       setProcessdataList(response.data);
+    });
+ }
+    
 //DELETE PROCESS
-let mach_srl=selectRow.Machine_srl;
-let process=selectRow.Mprocess;
+// let =selectRow.Machine_srl;
+// let process=selectRow.Mprocess;
+// console.log("delete process sending",mach_srl,process)
 const deleteProcess=()=>{
+  console.log(mach_srl,process)
   axios.post(
     "http://172.16.20.61:5000/productionSetup/deleteProcessFromMachine",
     {
       Machine_srl:mach_srl,
       Mprocess:process
     }).then((response) => {
-    getprocessdataList();
+      console.log("process delted",response.data)
+      getprocessdataList(selectedRow.Machine_srl);
   });
 }
 
@@ -62,7 +93,7 @@ const deleteProcess=()=>{
         {
           refName:referencename
         }).then((response) => {
-        console.log("Required data",response[0]);
+        // console.log("Required data",response[0]);
         setFinaldata(response.data);
       });
     }
@@ -74,7 +105,7 @@ useMemo(()=>{
 
 const handleMachineChange=(e)=>{
   let {name,value}=e.target
-  if(name==="working"){
+  if(name==="Working"){
   
     let status=''
 if(e.target.checked){
@@ -83,11 +114,11 @@ if(e.target.checked){
 else{
   status=0
 }
-    setMachineData({...machineData,"working":status})
+    setMachineData({...machineData,"Working":status})
     return
   }
   setMachineData({...machineData,[name]:value})
-  console.log("On change fn ",name,value)
+  // console.log("On change fn ",name,value)
 }
 
   const openAddprocess=()=>{
@@ -100,7 +131,9 @@ else{
     // console.log("hi")
   }
 
+  //save machine
   const saveMachine=()=>{
+    console.log("machine data",machineData)
     axios.post(
       "http://172.16.20.61:5000/productionSetup/saveMachine",
       {
@@ -108,6 +141,7 @@ else{
       }).then((response) => {
       console.log("sent", response);
       getmachineDetails();
+      MachineTabledata();
     });
 }
 
@@ -117,7 +151,7 @@ else{
             <div className="row">
               <div className="col-md-12 ">
                 <label className="">Reference Name</label>
-                <input className="in-field" value={machineData.refName} 
+                <input className="in-field" value={selectedRow.refName} 
                 disabled
                 name='refName' onChange={(e)=>handleMachineChange(e)} />
               </div>
@@ -126,8 +160,8 @@ else{
             <div className="row">
               <div className="col-md-12">
                 <label className="">Manufacturer</label>
-                <input className="in-field"  value={machineData.manufacturer} 
-                disabled name='manufacturer' onChange={(e)=>handleMachineChange(e)}/>
+                <input className="in-field"  name='manufacturer' value={machineData.manufacturer} 
+                disabled  onChange={(e)=>handleMachineChange(e)}/>
               </div>
             </div>
 
@@ -142,12 +176,13 @@ else{
 
               </div>
               <div className="col-md-3">
-              <div className="col-md-12 mt-4" style={{display:"flex",gap:"5px"}}>
+              <div className="col-md-12 mt-4"
+               style={{display:"flex",gap:"5px"}}>
                 <label className="">Working</label>
                 <input className="form-check-input mt-2"
                     type="checkbox"
                     checked={machineData.Working===1 ? true : false}
-                    name='working' onChange={(e)=>handleMachineChange(e)}
+                    name='Working' onChange={(e)=>handleMachineChange(e)}
                     id="flexCheckDefault"/>
               </div>
               </div>
@@ -166,7 +201,7 @@ else{
               <div className="col-md-12 ">
                 <label className="">Location</label>
                 <input className="in-field"
-                  value={machineData.location} name='location'
+                   name='location' value={machineData.location}
                  onChange={(e)=>handleMachineChange(e)} />
               </div>
               </div>
@@ -185,7 +220,7 @@ else{
               <div className="col-md-12 ">
                 <label className="">Target Rate</label>
                 <input className="in-field"  value={machineData.TgtRate}
-                name='targetRate' onChange={(e)=>handleMachineChange(e)} />
+                name='TgtRate' onChange={(e)=>handleMachineChange(e)} />
               </div>
               </div>
             </div>
@@ -194,25 +229,29 @@ else{
               <div className="col-md-6">
               <div className="col-md-12 ">
                 <label className="">Install Date</label>
-                <input className="in-field"  value={formatDate(machineData.InstallDate)} type="date"
-                 name='installDate' onChange={(e)=>handleMachineChange(e)} />
+                <input className="in-field" 
+              name='InstallDate'  value={formatDate(machineData.InstallDate)} type="date"
+                 onChange={(e)=>handleMachineChange(e)} />
               </div>
               </div>
               <div className="col-md-6">
               <div className="col-md-12 ">
                 <label className="">Uninstall Date</label>
-                <input className="in-field"  value={(machineData.UnistallDate)}
+                <input className="in-field" name='UnistallDate'
+                  value={formatDate(machineData.UnistallDate)}
                  type="date"
-                name='uninstallDate' onChange={(e)=>handleMachineChange(e)} />
+                 onChange={(e)=>handleMachineChange(e)} />
               </div>
               </div>
             </div>
             <div className="row">
-              <div className="col-md-12 ">
+            <div className="col-md-12 ">
                 <label className="">Remarks</label>
-                <input className="in-field"    value={machineData.remarks}
-                name='remarks' onChange={(e)=>handleMachineChange(e)} />
+                <input className="in-field" name='remarks'
+                 value={machineData.remarks} 
+                 onChange={(e)=>handleMachineChange(e)} />
               </div>
+              
             </div>
           </div>
 
@@ -255,18 +294,21 @@ else{
         Add Process
       </button>
 
-      <button className="button-style mt-2 group-button" style={{ width: "150px",marginLeft:"20px" }}>
+      {/* <button className="button-style mt-2 group-button" style={{ width: "150px",marginLeft:"20px" }}>
        Save Process
-      </button>
+      </button> */}
 
-      <button className="button-style mt-2 group-button" style={{ width: "150px",marginLeft:"20px"}} onClick={()=>{deleteProcess()}}>
+      <button className="button-style mt-2 group-button"
+       style={{ width: "150px",marginLeft:"20px"}} onClick={()=>{deleteProcess()}}>
        Delete Process
       </button>
      </div>
      <div className='mt-4'>
         <ProcessTable processdataList={processdataList}
-        selectedRowFn={selectedRowFn} 
-        selectRow={selectRow}/>
+        selectedRowFun={selectedRowFun} 
+        // selectedRow={selectedRow}
+        selectRow={selectRow}
+        getprocessdataList={getprocessdataList}/>
      </div>
       </div>
       

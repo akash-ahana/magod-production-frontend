@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import AlertAddprocess from './AlertAddprocess';
@@ -12,7 +12,7 @@ export default function AddProcessmodal({addprocess,setAddprocess,selectedRow,ge
 
   const formSchema = Yup.object().shape({
     RefProcess: Yup.string().required("This Field is required"),
-    TgtRate: Yup.string().required("This Field is requiredy"),
+    TgtRate: Yup.string().required("This Field is required"),
   });
 
   const formOptions = { resolver: yupResolver(formSchema) };
@@ -34,6 +34,11 @@ export default function AddProcessmodal({addprocess,setAddprocess,selectedRow,ge
       setProcessform({...processform,[name]:value})
     }
 
+    useEffect(() => {
+      // reset form with user data
+      reset(processform);
+    }, [processform]);
+    
     React.useEffect(() => {
       axios.get("http://172.16.20.61:5000/productionSetup/getAllProcessList").then((response) => {
         setProcessList(response.data);
@@ -72,6 +77,7 @@ export default function AddProcessmodal({addprocess,setAddprocess,selectedRow,ge
             setAlert={setAlert}
             processform={processform}
             selectedRow={selectedRow}
+            setProcessform={setProcessform}
             getprocessdataList={getprocessdataList}
             />
         )}
@@ -88,14 +94,15 @@ export default function AddProcessmodal({addprocess,setAddprocess,selectedRow,ge
         
               <div className="col-md-12 mb-4 ">
                  <label className="form-label">Process</label>
-                 <select  name='RefProcess'
-                 {...register("RefProcess")} 
-                 className={`ip-select ${
-                 errors.RefProcess ? "is-invalid" : ""}`} required
+                 <select  name='RefProcess' value={processform.RefProcess}
+                 {...register('RefProcess')} 
+                 className={`ip-select  ${
+                 errors.RefProcess ? 'is-invalid' : ''}`} required
                  onChange={(e)=>{
                   handleFormChange(e)
                   setRefProcess(e.target.value)
                   }}>
+                    <option value=''>Select Process</option>
                   {processList.map((value,key)=>{
                     return(
                       <>
@@ -108,7 +115,7 @@ export default function AddProcessmodal({addprocess,setAddprocess,selectedRow,ge
 
               <div className="col-md-12">
                 <label className=""> Rate(/Hour)</label>
-                <input  name='TgtRate'
+                <input    value={processform.TgtRate} name='TgtRate'
                 {...register("TgtRate")}
                 className={`in-field ${
                   errors.TgtRate ? "is-invalid" : ""}`} required 

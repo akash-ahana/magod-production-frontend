@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import MachineModal from './MachineModal';
@@ -27,8 +27,6 @@ export default function AddMachine({show, setShow}) {
   }, []);
 
   
-
-
   const formSchema = Yup.object().shape({
     refName: Yup.string().required("This Field is required"),
     manufacturer: Yup.string().required("This Field is requiredy"),
@@ -40,6 +38,11 @@ export default function AddMachine({show, setShow}) {
   const { register, handleSubmit, reset, formState } = useForm(formOptions);
   const { errors } = formState;
 
+  useEffect(() => {
+    // reset form with user data
+    reset(formdata);
+  }, [formdata]);
+
     const [open, setOpen] = React.useState(false);
 
     const onSubmit=()=>{
@@ -48,6 +51,7 @@ export default function AddMachine({show, setShow}) {
       setShow(false);
     }
 
+  
     const handleClose = () => setShow(false);
 
   return (
@@ -99,6 +103,8 @@ export default function AddMachine({show, setShow}) {
                     className={`ip-select ${
                   errors.Machine_Type ? "is-invalid" : ""}`} required
                   name="Machine_Type" onChange={(e)=>handleFormChange(e)}>
+                    
+                    <option value=''>Select Machine_Type</option>
                     {machinetypes.map((value,key)=>{
                       return(
                         <>
