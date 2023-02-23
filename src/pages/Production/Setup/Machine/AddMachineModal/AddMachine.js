@@ -6,10 +6,10 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import axios from "axios";
+import { useGlobalContext } from '../../../../../Context/Context';
 
 
-export default function AddMachine({show, setShow}) {
-  const [machinetypes,setMachinetypes] = React.useState([]);
+export default function AddMachine({show, setShow,machinetypes}) {
   let initialState=
   {manufacturer:'',refName:'',model:'',Machine_Type:''}
   const [formdata,setFormdata]=React.useState(initialState);
@@ -18,13 +18,6 @@ export default function AddMachine({show, setShow}) {
     setFormdata({...formdata,[name]:value})
   }
   // console.log(formdata)
-
-  React.useEffect(() => {
-    axios.get("http://172.16.20.61:5000/productionSetup/getMachineTypes").then((response) => {
-      setMachinetypes(response.data);
-      // console.log(response.data)
-    });
-  }, []);
 
   
   const formSchema = Yup.object().shape({

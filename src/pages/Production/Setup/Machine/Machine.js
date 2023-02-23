@@ -1,22 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import MachineForm from './MachineForm';
 import MachineTable from './MachineTable';
 import axios from "axios";
+import { useGlobalContext } from '../../../../Context/Context';
 
 
 export default function Machine() {
+  const {post,   MachineTabledata} = useGlobalContext();
+  console.log(post[0])
   const [selectedRow,setSelectedRow]=useState({refName:'',remarks:'',installDate:'',uninstallDate:'',targetRate:'',Working:'',location:'',RegnNo:''})
   const [machine_srl,setMachine_srl]=React.useState('')
   const [processdataList,setProcessdataList]=useState([])
 
+
+
+  useEffect(()=>{ 
+    MachineTabledata();
+  },[])
+  
+  useMemo(()=>{
+    setSelectedRow({...post[0],index:0})
+  },[post[0]])
+
   const selectedRowFn=(item,index)=>{
     let list={...item,index:index}
-    
-
-    // console.log("api call",item.Machine_srl)
     setMachine_srl(item.Machine_srl)
     // api call
-
     let {refName,manufacturer,Model,Machine_Type,remarks,InstallDate,UnistallDate,TgtRate,Working,location,RegnNo,Machine_srl}=list
     location=location ? location : ''
     remarks=remarks ? remarks : ''

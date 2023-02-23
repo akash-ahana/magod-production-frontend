@@ -6,7 +6,7 @@ export default function ProcessTable({selectedRowFun,selectRow,processdataList})
   // const [refprocess,setRefprocess]=useState({...processdataList})
 
 
- console.log(processdataList)
+//  console.log(processdataList)
   return (
     <div className='row mt-1'>
     <div className='col-md-12 col-sm-12'>

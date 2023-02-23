@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Table from "react-bootstrap/Table";
 import {useGlobalContext} from '../../../../Context/Context'
 
-export default function MachineTable({selectedRowFn,selectedRow,getprocessdataList}) {  
-  const {post, setPost,MachineTabledata} = useGlobalContext()
+export default function MachineTable({selectedRowFn,selectedRow}) {  
+  const {post,MachineTabledata} = useGlobalContext()
   
-   React.useEffect(() => {
+   useEffect(() => {
     MachineTabledata();
   }, []);
 
@@ -26,7 +26,6 @@ export default function MachineTable({selectedRowFn,selectedRow,getprocessdataLi
 {post.map((item,key)=>{
   return(
     <>
-    {/* {console.log(selectedRow?.index)} */}
      <tbody className='tablebody'>
           <tr onClick={()=>selectedRowFn(item,key)} className={key===selectedRow?.index? 'selcted-row-clr':'' }  >
              <td>{item.manufacturer}</td>

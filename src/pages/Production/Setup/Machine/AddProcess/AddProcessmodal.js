@@ -22,7 +22,7 @@ export default function AddProcessmodal({addprocess,setAddprocess,selectedRow,ge
     const [alert,setAlert]=React.useState(false);
     const [processList,setProcessList]=React.useState([])
 
-     const [Machinesrl,setMachinesrl]=React.useState('')
+    //  const [Machinesrl,setMachinesrl]=React.useState('')
      const [Mprocess,setMprocess]=React.useState('')
      const [RefProcess,setRefProcess]=React.useState('')
      const [TgtRate,setTgRate]=React.useState('');
@@ -39,14 +39,16 @@ export default function AddProcessmodal({addprocess,setAddprocess,selectedRow,ge
       reset(processform);
     }, [processform]);
     
-    React.useEffect(() => {
+    useEffect(() => {
       axios.get("http://172.16.20.61:5000/productionSetup/getAllProcessList").then((response) => {
         setProcessList(response.data);
       });
     }, []);
+
+    // console.log("processform",processList);
     
     const findmprocess = (processDescription) => {
-      console.log('inside function' ,processList)
+      // console.log('inside function' ,processList)
       let newArray = processList.filter(
         function(processList){ return processList.ProcessDescription == processDescription }
     );

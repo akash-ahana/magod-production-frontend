@@ -6,7 +6,7 @@ let date=new Date(dateeee)
     let day=date.getDate()
 
     if(month<10){
-        console.log("nside mnth")
+        // console.log("nside mnth")
         month=`0${month}`
     }
 
@@ -15,7 +15,7 @@ let date=new Date(dateeee)
 
     }
     // month=parseInt(month)
-    console.log(`${year}-${month}-${day}`)
+    // console.log(`${year}-${month}-${day}`)
      return `${year}-${month}-${day}`
 
 }

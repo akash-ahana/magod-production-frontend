@@ -14,20 +14,19 @@ const SnackbarContext = React.createContext({
 const AuthProvider = ({ children }) => {
   const [post, setPost] = React.useState([]);
 
+
   const MachineTabledata=()=>{
-    console.log("Function called")
+    // console.log("Function called")
     axios.get("http://172.16.20.61:5000/productionSetup/getallmachines").then((response) => {
       setPost(response.data);
-      console.log(response.data)
+      // console.log(response.data)
     });
   }
 
-  
- 
   return (
     <AppContext.Provider
       value={{
-        post,setPost, MachineTabledata
+        post,setPost, MachineTabledata,
       }}
     >
       {children}

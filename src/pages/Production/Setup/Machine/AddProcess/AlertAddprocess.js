@@ -4,13 +4,12 @@ import Modal from 'react-bootstrap/Modal';
 import axios from "axios";
 import { useGlobalContext } from '../../../../../Context/Context';
 
-export default function AlertAddprocess({alert,setAlert,processform,setProcessform,selectedRow,getprocessdataList}) {
+export default function AlertAddprocess({alert,setAlert,processform,
+  setProcessform,selectedRow,getprocessdataList}) {
   let addprocessState={RefProcess:'',TgtRate:'',Machine_srl:'',Mprocess:''}
 
-console.log(processform);
 
-
-    const handleClose = () => {
+    const submitProcessform = () => {
       setAlert(false)
       axios.post(
         "http://172.16.20.61:5000/productionSetup/addProcessToMachine",
@@ -27,7 +26,7 @@ console.log(processform);
 
   return (
     <div>
-      <Modal show={alert} onHide={handleClose}>
+      <Modal show={alert}>
         <Modal.Header closeButton>
           <Modal.Title>Magod Production Manager </Modal.Title>
         </Modal.Header>
@@ -38,7 +37,7 @@ console.log(processform);
         </Modal.Body>
 
         <Modal.Footer>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={()=>submitProcessform()}>
            OK
           </Button>
         </Modal.Footer>

@@ -5,8 +5,24 @@ import axios from "axios";
 import { formatDate } from './Dateconverter';
 import {useGlobalContext} from '../../../../Context/Context'
 import ProcessTable from './ProcessTable';
+import DeleteProcess from './Delete Process/DeleteProcess';
+import DeleteMachine from './DeleteMachine/DeleteMachine';
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
 
 export default function ({selectedRow}) {
+
+  const formSchema = Yup.object().shape({
+    RegnNo: Yup.string().required("This Field is required"),
+    location: Yup.string().required("This Field is requiredy"),
+    InstallDate: Yup.string().required("This Field is requiredy"),
+  });
+
+  const formOptions = { resolver: yupResolver(formSchema) };
+  const { register, handleSubmit, reset, formState } = useForm(formOptions);
+  const { errors } = formState;
+
     const {MachineTabledata} = useGlobalContext()
     const [finaldata,setFinaldata]=React.useState([])
     const [show, setShow] = React.useState(false);
@@ -16,9 +32,20 @@ export default function ({selectedRow}) {
     let savemachineInitialState={refNmae:'',manufacturer:'',model:'',Working:0,TgtRate:'',
     reamrks:'',InstallDate:'',UnistallDate:'',location:'',RegnNo:''}
     
-    console.log("required",selectedRow)
+     // PROCESSLIST FOR SELECT INPUT
+    const [machinetypes,setMachinetypes] = React.useState([]);
+   const getSelectmachinetypes=()=>{
+    axios.get("http://172.16.20.61:5000/productionSetup/getMachineTypes").then((response) => {
+          setMachinetypes(response.data);
+        }); 
+   }
 
-
+   useEffect(() => {
+    getSelectmachinetypes();
+   }, []);
+ 
+  
+    
     //SELECT PROCESS TABLE DATA 
     const [mach_srl,setMarh_srl]=useState('')
     const [process,setProcess]=useState('')
@@ -35,12 +62,7 @@ export default function ({selectedRow}) {
   
 
  //PROCESSLIST
- const [processdataList,setProcessdataList]=useState([])
-  // useMemo(()=>{
-  //   setRefprocess({...processdataList})
-  // },[processdataList])
-
-  // console.log(refprocess) 
+ const [processdataList,setProcessdataList]=useState([]) 
   useEffect(()=>{
     getprocessdataList(selectedRow.Machine_srl)
   },[selectedRow])
@@ -57,9 +79,12 @@ export default function ({selectedRow}) {
  }
     
 //DELETE PROCESS
-// let =selectRow.Machine_srl;
-// let process=selectRow.Mprocess;
-// console.log("delete process sending",mach_srl,process)
+const [opendeleteprocess,setOpendeleteprocess]=useState('')
+
+const openDeleteProcess=()=>{
+setOpendeleteprocess(true);
+}
+
 const deleteProcess=()=>{
   console.log(mach_srl,process)
   axios.post(
@@ -75,6 +100,11 @@ const deleteProcess=()=>{
 
  
     //DELETE MACHINE
+    const[opendeletemachine,setOpendeletemachine]=useState('');
+    const openDeletemachine=()=>{
+      setOpendeletemachine(true);
+    }
+
     let referencename=selectedRow.refName;
     const deleteMachine=()=>{
       axios.post(
@@ -140,19 +170,54 @@ else{
       ...machineData
       }).then((response) => {
       console.log("sent", response);
-      getmachineDetails();
+      // getmachineDetails();
       MachineTabledata();
     });
 }
 
   return (
     <div>
+       { (
+              <AddMachine
+                show={show}
+                setShow={setShow}
+                machinetypes={machinetypes}
+              />
+            )}
+
+{opendeletemachine && (
+              <DeleteMachine
+               opendeletemachine={opendeletemachine}
+               setOpendeletemachine={setOpendeletemachine}
+               selectedRow={selectedRow}
+               deleteMachine={deleteMachine}
+              />
+            )}
+
+{opendeleteprocess && (
+              <DeleteProcess
+               opendeleteprocess={opendeleteprocess}
+                setOpendeleteprocess={setOpendeleteprocess}
+                deleteProcess={deleteProcess}
+                selectRow={selectRow}
+              />
+            )}
+
+            {(
+              <AddProcessmodal
+               addprocess={addprocess}
+               setAddprocess={setAddprocess}
+               selectedRow={selectedRow}
+               getprocessdataList={getprocessdataList}
+               />
+            )}
+      {/* <form className="form"> */}
           <div className="row">
             <div className="row">
               <div className="col-md-12 ">
                 <label className="">Reference Name</label>
                 <input className="in-field" value={selectedRow.refName} 
-                disabled
+                disabled={true}
                 name='refName' onChange={(e)=>handleMachineChange(e)} />
               </div>
             </div>
@@ -161,7 +226,7 @@ else{
               <div className="col-md-12">
                 <label className="">Manufacturer</label>
                 <input className="in-field"  name='manufacturer' value={machineData.manufacturer} 
-                disabled  onChange={(e)=>handleMachineChange(e)}/>
+                disabled={true}  onChange={(e)=>handleMachineChange(e)}/>
               </div>
             </div>
 
@@ -171,7 +236,7 @@ else{
               <div className="col-md-12 ">
                 <label className="">Model</label>
                 <input className="in-field" value={machineData.Model} 
-                 disabled name='model' onChange={(e)=>handleMachineChange(e)} />
+                 disabled={true} name='model' onChange={(e)=>handleMachineChange(e)} />
               </div>
 
               </div>
@@ -192,16 +257,25 @@ else{
               <div className="col-md-6">
               <div className="col-md-12 ">
                 <label className="">RegnNo</label>
-                <input className="in-field"   value={machineData.RegnNo}
-                 name='RegnNo' onChange={(e)=>handleMachineChange(e)} />
+                <input   value={machineData.RegnNo}
+                 name='RegnNo' 
+                 disabled={machineData.RegnNo !=='' ? true : false}
+                  {...register("RegnNo")}
+                className={`in-field ${
+                  errors.RegnNo ? "is-invalid" : ""}`} required 
+                  onChange={(e)=>handleMachineChange(e)} />
               </div>
 
               </div>
               <div className="col-md-6">
               <div className="col-md-12 ">
                 <label className="">Location</label>
-                <input className="in-field"
+                <input 
                    name='location' value={machineData.location}
+                   disabled={machineData.location !=='' ? true : false}
+                   {...register("location")} 
+                className={`in-field ${
+                  errors.location ? "is-invalid" : ""}`} required 
                  onChange={(e)=>handleMachineChange(e)} />
               </div>
               </div>
@@ -211,8 +285,17 @@ else{
             <div className="col-md-6">
               <div className="col-md-12 ">
                 <label className="">Machine_Type</label>
-                <input className="in-field"  value={machineData.Machine_Type}
-                disabled name='Machine_Type' onChange={(e)=>handleMachineChange(e)}/>
+                <select  value={machineData.Machine_Type}
+                    className="ip-select"
+                    name='Machine_Type' onChange={(e)=>handleMachineChange(e)}>
+                    {machinetypes.map((value,key)=>{
+                      return(
+                        <>
+                          <option value={value}>{value}</option>
+                        </>
+                      )
+                    })}
+                  </select>
               </div>
               </div>
               
@@ -229,8 +312,13 @@ else{
               <div className="col-md-6">
               <div className="col-md-12 ">
                 <label className="">Install Date</label>
-                <input className="in-field" 
-              name='InstallDate'  value={formatDate(machineData.InstallDate)} type="date"
+                <input 
+              name='InstallDate' 
+               value={formatDate(machineData.InstallDate)} type="date"
+               disabled={machineData.InstallDate !=='' ? true : false}
+               {...register("InstallDate")} 
+                className={`in-field ${
+                  errors.InstallDate ? "is-invalid" : ""}`} required 
                  onChange={(e)=>handleMachineChange(e)} />
               </div>
               </div>
@@ -255,22 +343,7 @@ else{
             </div>
           </div>
 
-          { (
-              <AddMachine
-                show={show}
-                setShow={setShow}
-              />
-            )}
-
-            {(
-              <AddProcessmodal
-               addprocess={addprocess}
-               setAddprocess={setAddprocess}
-               selectedRow={selectedRow}
-               getprocessdataList={getprocessdataList}
-               />
-            )}
-
+         
       <div className="row mt-3">
         <button className="button-style mt-2 group-button"
          style={{ width: "150px",marginLeft:"20px" }} onClick={addMachine}>
@@ -279,13 +352,14 @@ else{
 
         <button className="button-style mt-2 group-button"
          style={{ width: "150px" ,marginLeft:"20px"}}
-         onClick={()=>{saveMachine()}}>
+         onClick={()=>saveMachine()}
+         >
          Save Machine
         </button>
 
       <button className="button-style mt-2 group-button"
        style={{ width: "150px",marginLeft:"20px" }} 
-       onClick={()=>{deleteMachine()}}>
+       onClick={()=>{openDeletemachine()}}>
        Delete Machine
       </button>
 
@@ -294,15 +368,13 @@ else{
         Add Process
       </button>
 
-      {/* <button className="button-style mt-2 group-button" style={{ width: "150px",marginLeft:"20px" }}>
-       Save Process
-      </button> */}
 
       <button className="button-style mt-2 group-button"
-       style={{ width: "150px",marginLeft:"20px"}} onClick={()=>{deleteProcess()}}>
+       style={{ width: "150px",marginLeft:"20px"}} onClick={()=>{openDeleteProcess()}}>
        Delete Process
       </button>
      </div>
+    {/* </form> */}
      <div className='mt-4'>
         <ProcessTable processdataList={processdataList}
         selectedRowFun={selectedRowFun} 
