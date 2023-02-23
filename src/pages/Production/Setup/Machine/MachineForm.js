@@ -10,6 +10,7 @@ import DeleteMachine from './DeleteMachine/DeleteMachine';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
+import SaveMachine from './SaveMachine/SaveMachine';
 
 export default function ({selectedRow}) {
 
@@ -161,9 +162,12 @@ else{
     // console.log("hi")
   }
 
-  //save machine
+  //SAVE MACHINE
+  const[opensavemachine,setOpensavemachine]=useState('')
+  const openSavemachine=()=>{
+    setOpensavemachine(true);
+  }
   const saveMachine=()=>{
-    console.log("machine data",machineData)
     axios.post(
       "http://172.16.20.61:5000/productionSetup/saveMachine",
       {
@@ -211,6 +215,14 @@ else{
                getprocessdataList={getprocessdataList}
                />
             )}
+
+           {opensavemachine && (
+             <SaveMachine
+             opensavemachine={opensavemachine}
+             setOpensavemachine={setOpensavemachine}
+             selectedRow={selectedRow}/>
+           )}
+
       {/* <form className="form"> */}
           <div className="row">
             <div className="row">
@@ -259,7 +271,7 @@ else{
                 <label className="">RegnNo</label>
                 <input   value={machineData.RegnNo}
                  name='RegnNo' 
-                 disabled={machineData.RegnNo !=='' ? true : false}
+                //  disabled={machineData.RegnNo !=='' ? true : false}
                   {...register("RegnNo")}
                 className={`in-field ${
                   errors.RegnNo ? "is-invalid" : ""}`} required 
@@ -272,10 +284,8 @@ else{
                 <label className="">Location</label>
                 <input 
                    name='location' value={machineData.location}
-                   disabled={machineData.location !=='' ? true : false}
-                   {...register("location")} 
-                className={`in-field ${
-                  errors.location ? "is-invalid" : ""}`} required 
+                  //  disabled={machineData.location !=='' ? true : false}
+                  required 
                  onChange={(e)=>handleMachineChange(e)} />
               </div>
               </div>
@@ -315,7 +325,7 @@ else{
                 <input 
               name='InstallDate' 
                value={formatDate(machineData.InstallDate)} type="date"
-               disabled={machineData.InstallDate !=='' ? true : false}
+              //  disabled={machineData.InstallDate !=='' ? true : false}
                {...register("InstallDate")} 
                 className={`in-field ${
                   errors.InstallDate ? "is-invalid" : ""}`} required 
@@ -352,8 +362,8 @@ else{
 
         <button className="button-style mt-2 group-button"
          style={{ width: "150px" ,marginLeft:"20px"}}
-         onClick={()=>saveMachine()}
-         >
+         onClick={()=> {openSavemachine()
+          saveMachine()}}>
          Save Machine
         </button>
 
