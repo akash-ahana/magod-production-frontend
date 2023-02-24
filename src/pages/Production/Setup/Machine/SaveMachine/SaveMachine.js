@@ -14,7 +14,7 @@ export default function SaveMachine({opensavemachine,setOpensavemachine,selected
           <Modal.Title>DELETE MACHINE</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body> Machine Refname:{selectedRow.refName} saved</Modal.Body>
+        <Modal.Body> Machine  Details saved</Modal.Body>
 
         <Modal.Footer>
           <Button variant="primary" onClick={handleClose} >

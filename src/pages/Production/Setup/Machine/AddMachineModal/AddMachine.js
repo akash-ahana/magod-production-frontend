@@ -21,7 +21,7 @@ export default function AddMachine({show, setShow,machinetypes}) {
 
   
   const formSchema = Yup.object().shape({
-    refName: Yup.string().required("This Field is required"),
+    refName: Yup.string().required("This Field is required"),         
     manufacturer: Yup.string().required("This Field is requiredy"),
     model: Yup.string().required("This Field is required"),
     Machine_Type: Yup.string().required("This Field is required"),

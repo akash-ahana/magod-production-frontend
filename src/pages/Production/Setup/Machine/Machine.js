@@ -6,8 +6,8 @@ import { useGlobalContext } from '../../../../Context/Context';
 
 
 export default function Machine() {
-  const {post,   MachineTabledata} = useGlobalContext();
-  console.log(post[0])
+  const {post,MachineTabledata} = useGlobalContext();
+  // console.log(post[0])
   const [selectedRow,setSelectedRow]=useState({refName:'',remarks:'',installDate:'',uninstallDate:'',targetRate:'',Working:'',location:'',RegnNo:''})
   const [machine_srl,setMachine_srl]=React.useState('')
   const [processdataList,setProcessdataList]=useState([])
@@ -26,7 +26,9 @@ export default function Machine() {
     let list={...item,index:index}
     setMachine_srl(item.Machine_srl)
     // api call
-    let {refName,manufacturer,Model,Machine_Type,remarks,InstallDate,UnistallDate,TgtRate,Working,location,RegnNo,Machine_srl}=list
+    let {refName,manufacturer,Model,Machine_Type,remarks,InstallDate,
+      UnistallDate,TgtRate,Working,location,RegnNo,Machine_srl,isRegnNumberPresent,
+      isLocationPresent,isInstallDatePresent}=list
     location=location ? location : ''
     remarks=remarks ? remarks : ''
     InstallDate=InstallDate ? InstallDate : ''
@@ -34,7 +36,9 @@ export default function Machine() {
     TgtRate=TgtRate ? TgtRate : ''
     RegnNo=RegnNo ? RegnNo : ''
     Working=Working ? Working : 0
-    setSelectedRow({refName,manufacturer,Model,Machine_Type,remarks,InstallDate,UnistallDate,TgtRate,Working,location,RegnNo,Machine_srl,index:index})
+    setSelectedRow({refName,manufacturer,Model,Machine_Type,remarks,
+      InstallDate,UnistallDate,TgtRate,Working,location,RegnNo,Machine_srl,
+      isRegnNumberPresent,isLocationPresent,isInstallDatePresent,index:index})
   }
   // console.log("Machine",machine_srl);
   const getprocessdataList=()=>{

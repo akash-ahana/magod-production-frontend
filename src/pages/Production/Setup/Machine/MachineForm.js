@@ -13,6 +13,7 @@ import * as Yup from "yup";
 import SaveMachine from './SaveMachine/SaveMachine';
 
 export default function ({selectedRow}) {
+  console.log(selectedRow.isLocationPresent);
 
   const formSchema = Yup.object().shape({
     RegnNo: Yup.string().required("This Field is required"),
@@ -28,6 +29,7 @@ export default function ({selectedRow}) {
     const [finaldata,setFinaldata]=React.useState([])
     const [show, setShow] = React.useState(false);
     const [addprocess,setAddprocess]=React.useState(false)
+    const [isValidForm,setIsValidForm]=React.useState(false)
     const [machineData,setMachineData]=useState({})
     
     let savemachineInitialState={refNmae:'',manufacturer:'',model:'',Working:0,TgtRate:'',
@@ -148,6 +150,11 @@ else{
     setMachineData({...machineData,"Working":status})
     return
   }
+
+  let list={...machineData,[name]:value}
+if(list['RegnNo']){
+ setIsValidForm(true)
+}
   setMachineData({...machineData,[name]:value})
   // console.log("On change fn ",name,value)
 }
@@ -223,7 +230,7 @@ else{
              selectedRow={selectedRow}/>
            )}
 
-      {/* <form className="form"> */}
+      {/* <form className="form" onSubmit={handleSubmit(saveMachine())}> */}
           <div className="row">
             <div className="row">
               <div className="col-md-12 ">
@@ -271,7 +278,7 @@ else{
                 <label className="">RegnNo</label>
                 <input   value={machineData.RegnNo}
                  name='RegnNo' 
-                //  disabled={machineData.RegnNo !=='' ? true : false}
+                 disabled={machineData.isRegnNumberPresent=== true ? true : false}
                   {...register("RegnNo")}
                 className={`in-field ${
                   errors.RegnNo ? "is-invalid" : ""}`} required 
@@ -284,7 +291,7 @@ else{
                 <label className="">Location</label>
                 <input 
                    name='location' value={machineData.location}
-                  //  disabled={machineData.location !=='' ? true : false}
+                   disabled={machineData.isLocationPresent===true ? true : false}
                   required 
                  onChange={(e)=>handleMachineChange(e)} />
               </div>
@@ -325,7 +332,7 @@ else{
                 <input 
               name='InstallDate' 
                value={formatDate(machineData.InstallDate)} type="date"
-              //  disabled={machineData.InstallDate !=='' ? true : false}
+               disabled={machineData.isInstallDatePresent === true ? true : false}
                {...register("InstallDate")} 
                 className={`in-field ${
                   errors.InstallDate ? "is-invalid" : ""}`} required 
