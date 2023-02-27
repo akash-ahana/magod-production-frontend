@@ -19,6 +19,7 @@ import EditShiftIC from "./pages/Production/Setup/EditShiftIC";
 import StoppagesList from "./pages/Production/Setup/StoppagesList";
 import ScheduleList from "./pages/Production/Production/ScheduleList/ScheduleList";
 import ShiftEditor from "./pages/Production/Shift Planner/ShiftEditor";
+import ShiftManager from "./pages/Production/Production/shiftmanager/ShiftManager";
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
            <Route path="production">
                 <Route index={true} element={<Production/>}/>
                 <Route path="schedulelist" element={<ScheduleList/>} />
+                <Route path="shiftmanager" element={<ShiftManager/>} />
             </Route>
 
             <Route path="fabrication" element={<Fabrication/>} />

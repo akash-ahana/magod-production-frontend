@@ -42,6 +42,21 @@ const Schedulelistdata3 =[
     }
 ]
 
+const Schedulelistdata4=[
+    {
+        "":"",
+        TaskNo:"MS MESH T12026",
+        Machine:"12",
+        Operation:"0",
+        ProgramNo:"31",
+        planTime:"12345",
+        ActualTime:"235001",
+        Qty:"234567",
+        Allowed:"14567",
+        Proccessr:"",
+    }
+]
+
 const selectScheduleList=[
     {
         ScheduleNo:"45678789",
@@ -50,4 +65,4 @@ const selectScheduleList=[
     }
 ]
 
-export {Schedulelistdata1,Schedulelistdata2,Schedulelistdata3,selectScheduleList}
+export {Schedulelistdata1,Schedulelistdata2,Schedulelistdata3,Schedulelistdata4,selectScheduleList}
