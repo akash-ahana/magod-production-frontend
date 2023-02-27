@@ -31,8 +31,8 @@ export default function AlertAddprocess({alert,setAlert,processform,
           <Modal.Title>Magod Production Manager </Modal.Title>
         </Modal.Header>
 
-        <Modal.Body> Do you wish to add {processform.RefProcess},({processform.Mprocess}) Target Rate 
-         {processform.TgtRate} / hour added to {selectedRow.refName} 
+        <Modal.Body> Do you wish to add {processform.RefProcess},({processform.Mprocess}) with Target Rate 
+         {processform.TgtRate} / hour  to {selectedRow.refName} 
       
         </Modal.Body>
 

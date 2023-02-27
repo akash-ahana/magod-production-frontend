@@ -69,9 +69,11 @@ export default function AddMachine({show, setShow,machinetypes}) {
             <div className="row">
               <div className="col-md-12">
                 <label className=""> Machine Reference Name</label>
-                <input    value={formdata.refName} {...register("refName")}
+                <input     name="refName"  value={formdata.refName} 
+                {...register('refName')}
                  className={`in-field ${
-                  errors.refName ? "is-invalid" : ""}`} required name="refName"
+                  errors.refName ? "is-invalid" : ""}`} required
+                    maxLength={100}
                    onChange={(e)=>handleFormChange(e)}/>
               </div>
 

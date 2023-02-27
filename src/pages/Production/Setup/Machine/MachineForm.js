@@ -13,7 +13,7 @@ import * as Yup from "yup";
 import SaveMachine from './SaveMachine/SaveMachine';
 
 export default function ({selectedRow}) {
-  console.log(selectedRow.isLocationPresent);
+  // console.log(selectedRow.isInstallDatePresent);
 
   const formSchema = Yup.object().shape({
     RegnNo: Yup.string().required("This Field is required"),
@@ -29,7 +29,6 @@ export default function ({selectedRow}) {
     const [finaldata,setFinaldata]=React.useState([])
     const [show, setShow] = React.useState(false);
     const [addprocess,setAddprocess]=React.useState(false)
-    const [isValidForm,setIsValidForm]=React.useState(false)
     const [machineData,setMachineData]=useState({})
     
     let savemachineInitialState={refNmae:'',manufacturer:'',model:'',Working:0,TgtRate:'',
@@ -42,6 +41,7 @@ export default function ({selectedRow}) {
           setMachinetypes(response.data);
         }); 
    }
+   
 
    useEffect(() => {
     getSelectmachinetypes();
@@ -109,12 +109,14 @@ const deleteProcess=()=>{
     }
 
     let referencename=selectedRow.refName;
+    // console.log("delete machine",referencename)
     const deleteMachine=()=>{
       axios.post(
         "http://172.16.20.61:5000/productionSetup/deleteMachine",
         {
           refName:referencename
         }).then((response) => {
+          // console.log("deleted",response)
         MachineTabledata();
       });
     }
@@ -150,11 +152,6 @@ else{
     setMachineData({...machineData,"Working":status})
     return
   }
-
-  let list={...machineData,[name]:value}
-if(list['RegnNo']){
- setIsValidForm(true)
-}
   setMachineData({...machineData,[name]:value})
   // console.log("On change fn ",name,value)
 }
@@ -181,8 +178,8 @@ if(list['RegnNo']){
       ...machineData
       }).then((response) => {
       console.log("sent", response);
-      // getmachineDetails();
       MachineTabledata();
+      openSavemachine();
     });
 }
 
@@ -230,12 +227,12 @@ if(list['RegnNo']){
              selectedRow={selectedRow}/>
            )}
 
-      {/* <form className="form" onSubmit={handleSubmit(saveMachine())}> */}
+      <form className="form" onSubmit={handleSubmit(saveMachine)} >
           <div className="row">
             <div className="row">
               <div className="col-md-12 ">
                 <label className="">Reference Name</label>
-                <input className="in-field" value={selectedRow.refName} 
+                <input className="in-field" value={machineData.refName} 
                 disabled={true}
                 name='refName' onChange={(e)=>handleMachineChange(e)} />
               </div>
@@ -244,7 +241,8 @@ if(list['RegnNo']){
             <div className="row">
               <div className="col-md-12">
                 <label className="">Manufacturer</label>
-                <input className="in-field"  name='manufacturer' value={machineData.manufacturer} 
+                <input className="in-field"  name='manufacturer'
+                 value={machineData.manufacturer} 
                 disabled={true}  onChange={(e)=>handleMachineChange(e)}/>
               </div>
             </div>
@@ -292,7 +290,9 @@ if(list['RegnNo']){
                 <input 
                    name='location' value={machineData.location}
                    disabled={machineData.isLocationPresent===true ? true : false}
-                  required 
+                   {...register("location")}
+                   className={`in-field ${
+                     errors.location ? "is-invalid" : ""}`} required 
                  onChange={(e)=>handleMachineChange(e)} />
               </div>
               </div>
@@ -338,6 +338,7 @@ if(list['RegnNo']){
                   errors.InstallDate ? "is-invalid" : ""}`} required 
                  onChange={(e)=>handleMachineChange(e)} />
               </div>
+              
               </div>
               <div className="col-md-6">
               <div className="col-md-12 ">
@@ -368,9 +369,7 @@ if(list['RegnNo']){
         </button>
 
         <button className="button-style mt-2 group-button"
-         style={{ width: "150px" ,marginLeft:"20px"}}
-         onClick={()=> {openSavemachine()
-          saveMachine()}}>
+         style={{ width: "150px" ,marginLeft:"20px"}} type='submit'>
          Save Machine
         </button>
 
@@ -391,7 +390,7 @@ if(list['RegnNo']){
        Delete Process
       </button>
      </div>
-    {/* </form> */}
+    </form>
      <div className='mt-4'>
         <ProcessTable processdataList={processdataList}
         selectedRowFun={selectedRowFun} 

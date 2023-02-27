@@ -3,11 +3,12 @@ import Table from "react-bootstrap/Table";
 import {useGlobalContext} from '../../../../Context/Context'
 
 export default function MachineTable({selectedRowFn,selectedRow}) {  
-  const {post,MachineTabledata} = useGlobalContext()
+  const {post,MachineTabledata} = useGlobalContext();
+  // console.log(post);
   
-   useEffect(() => {
-    MachineTabledata();
-  }, []);
+  //  useEffect(() => {
+  //   MachineTabledata();
+  // }, []);
 
   
   return (

@@ -12,8 +12,6 @@ export default function Machine() {
   const [machine_srl,setMachine_srl]=React.useState('')
   const [processdataList,setProcessdataList]=useState([])
 
-
-
   useEffect(()=>{ 
     MachineTabledata();
   },[])

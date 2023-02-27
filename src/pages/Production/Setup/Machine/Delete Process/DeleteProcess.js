@@ -3,7 +3,8 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import axios from "axios";
 
-export default function DeleteProcess({opendeleteprocess,setOpendeleteprocess,selectRow,deleteProcess}) {
+export default function DeleteProcess({opendeleteprocess,setOpendeleteprocess,
+  selectRow,deleteProcess}) {
 
     console.log(selectRow[0]);
     const handleClose = () => setOpendeleteprocess(false);
@@ -16,8 +17,8 @@ export default function DeleteProcess({opendeleteprocess,setOpendeleteprocess,se
           <Modal.Title>DELETE PROCESS</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body> Are you sure u want delete  {selectRow[0].RefProcess
-}({selectRow[0].Mprocess} )  from **Machine Name </Modal.Body>
+        <Modal.Body> Are you sure u want delete {selectRow[0].RefProcess
+}({selectRow[0].Mprocess} )</Modal.Body>
 
         <Modal.Footer>
           <Button variant="primary" onClick={()=>{deleteProcess()
