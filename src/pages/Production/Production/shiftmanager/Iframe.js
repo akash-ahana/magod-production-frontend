@@ -7,7 +7,7 @@ import TabData from './components/TabData';
 // import Popup from './components/Popup';
 
 function Iframe() {
-    const [key, setKey] = useState("");
+    const [key, setKey] = useState("tabdata");
 
   return (
     <div style={{marginLeft: '637px'}}>
@@ -17,7 +17,7 @@ function Iframe() {
       onSelect={(k) => setKey(k)}
       className="mb-3 mt-3 tab_font"
     >
-      <Tab eventKey="Programs Completed" title="Programs Completed">
+      <Tab eventKey="tabdata" title="Programs Completed">
       <TabData/>
       </Tab>
 

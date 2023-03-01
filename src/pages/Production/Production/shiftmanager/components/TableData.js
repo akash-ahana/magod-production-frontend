@@ -1,26 +1,24 @@
-import React, { useState } from 'react';
-import Table from "react-bootstrap/Table";
-import axios from "axios";
+import React from 'react'
+import { Table } from 'react-bootstrap'
 
-export default function ProcessTable({processdataList,selectedRowFn,selectRow}) {
-  console.log(processdataList) 
- 
+export default function TableData({processdataList,selectedRowFn,selectRow}) {
   return (
     <div className='row mt-1'>
-    <div className='col-md-12 col-sm-12'>
+    <div className='col-md-12 col-sm-12' style={{paddingRight:'462px', paddingBottom:'23px'}}>
      <div style={{height:"200px",overflowY: "scroll"}}>
      <Table bordered>
        <thead style={{textAlign:"center"}}>
          <tr>
-           <th>Process</th>
-           <th>TgtRate</th>
-           <th>Id</th>
-           <th>Machine_srl</th>
-           <th>refProcess</th>
+           <th>DWG Name</th>
+           <th>To Produce</th>
+           <th>Produced</th>
+           <th>Rejected</th>
+           <th>Cleared</th>
+           <th>Remarks</th>
          </tr>
        </thead>
 
-{processdataList.map((item,key)=>{
+{/* {processdataList.map((item,key)=>{
   return(
     <>
     <tbody className='tablebody'>
@@ -34,7 +32,7 @@ export default function ProcessTable({processdataList,selectedRowFn,selectRow}) 
     </tbody>
     </>
   )
-})}
+})} */}
  </Table>
      </div>
  </div>
