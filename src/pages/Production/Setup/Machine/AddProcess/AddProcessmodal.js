@@ -8,7 +8,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 //import {process} from './ProcessList'
 
-export default function AddProcessmodal({addprocess,setAddprocess,selectedRow,getprocessdataList}) {
+export default function AddProcessmodal({addprocess,setAddprocess,
+  selectedRow,getprocessdataList}) {
 
   const formSchema = Yup.object().shape({
     RefProcess: Yup.string().required("This Field is required"),

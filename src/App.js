@@ -34,6 +34,7 @@ function App() {
            <Route path="production">
                 <Route index={true} element={<Production/>}/>
                 <Route path="schedulelist" element={<ScheduleList/>} />
+                {/* <Route path="schedulelist" element={<ScheduleList/>} /> */}
 
             </Route>
 

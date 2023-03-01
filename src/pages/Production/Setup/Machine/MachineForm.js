@@ -16,9 +16,9 @@ export default function ({selectedRow}) {
   // console.log(selectedRow.isInstallDatePresent);
 
   const formSchema = Yup.object().shape({
-    RegnNo: Yup.string().required("This Field is required"),
-    location: Yup.string().required("This Field is requiredy"),
-    InstallDate: Yup.string().required("This Field is requiredy"),
+    // RegnNo: Yup.string().required("This Field is required"),
+    // location: Yup.string().required("This Field is requiredy"),
+    // InstallDate: Yup.string().required("This Field is requiredy"),
   });
 
   const formOptions = { resolver: yupResolver(formSchema) };
@@ -165,13 +165,17 @@ else{
     setShow(true);
     // console.log("hi")
   }
-
+  
   //SAVE MACHINE
   const[opensavemachine,setOpensavemachine]=useState('')
   const openSavemachine=()=>{
     setOpensavemachine(true);
   }
+  console.log(opensavemachine)
   const saveMachine=()=>{
+    // openSavemachine();
+    console.log("called")
+
     axios.post(
       "http://172.16.20.61:5000/productionSetup/saveMachine",
       {
@@ -363,8 +367,8 @@ else{
 
          
       <div className="row mt-3">
-        <button className="button-style mt-2 group-button"
-         style={{ width: "150px",marginLeft:"20px" }} onClick={addMachine}>
+        <button className="button-style mt-2 group-button" type='button'
+         style={{ width: "150px",marginLeft:"20px" }} onClick={()=>addMachine()}>
            Add Machine
         </button>
 
@@ -373,19 +377,19 @@ else{
          Save Machine
         </button>
 
-      <button className="button-style mt-2 group-button"
+      <button className="button-style mt-2 group-button" type='button'
        style={{ width: "150px",marginLeft:"20px" }} 
        onClick={()=>{openDeletemachine()}}>
        Delete Machine
       </button>
 
-      <button className="button-style mt-2 group-button"
-       style={{ width: "150px",marginLeft:"20px"}} onClick={openAddprocess}>
+      <button className="button-style mt-2 group-button" type='button'
+       style={{ width: "150px",marginLeft:"20px"}} onClick={()=>openAddprocess()}>
         Add Process
       </button>
 
 
-      <button className="button-style mt-2 group-button"
+      <button className="button-style mt-2 group-button" type='button'
        style={{ width: "150px",marginLeft:"20px"}} onClick={()=>{openDeleteProcess()}}>
        Delete Process
       </button>

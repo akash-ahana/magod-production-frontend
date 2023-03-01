@@ -4,17 +4,13 @@ import {useGlobalContext} from '../../../../Context/Context'
 
 export default function MachineTable({selectedRowFn,selectedRow}) {  
   const {post,MachineTabledata} = useGlobalContext();
-  // console.log(post);
-  
-  //  useEffect(() => {
-  //   MachineTabledata();
-  // }, []);
 
   
   return (
     <div className='row mt-1'>
     <div className='col-md-12 col-sm-12'>
      <div style={{height:"500px",overflowY: "scroll"}}>
+      
      <Table bordered>
        <thead style={{textAlign:"center"}}>
          <tr>
@@ -44,10 +40,12 @@ export default function MachineTable({selectedRowFn,selectedRow}) {
          </tr>
        </tbody>
     </>
+
   )
 })}
  </Table>
      </div>
+
  </div>
 </div>
   )
