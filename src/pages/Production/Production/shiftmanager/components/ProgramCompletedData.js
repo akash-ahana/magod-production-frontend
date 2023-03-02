@@ -1,31 +1,24 @@
 import React from 'react'
-// import { Link } from 'react-router-dom';
-// import { Schedulelistdata4 } from '../../ScheduleList/ScheduleListdata';
-import CustomModal from '../programpath/CustomModal';
 import { Table } from 'react-bootstrap'
+import ProgramCompletedModal from '../programpath/ProgramCompletedModal';
 
-export default function TabData() {
+export default function ProgramCompletedData() {
 
-  const [show, setShow] = React.useState(false);
-
-    // const getHeadings2 = () => {
-    //     return Object.keys(Schedulelistdata4[0]);
-    //   };
+    const [show, setShow] = React.useState(false);
 
     const handaleClick =()=>{
-       setShow(true);
-    }
-
+        setShow(true);
+     }
 
   return (
     <>
-    <div> 
+    <div>
     <div className="row mt-2">
        <button className="button-style mt-2 group-button"
           style={{ width: "150px",marginLeft:"20px" }} onClick={handaleClick}>
           Open Programs
         </button>
-    </div>   
+    </div>
 
     <div className='row mt-3'>
     <div className='col-md-12 col-sm-12'>
@@ -65,24 +58,16 @@ export default function TabData() {
  </div>
 </div>
 
-
-
-    {/* <div className="col-md-12 col-sm-12 mt-3">
-      <div
-        className="table-data"
-        style={{overflowY: "scroll" }}>
-        <Tables theadData={getHeadings2()} tbodyData={Schedulelistdata4} />
-      </div>
-    </div> */}
 </div>
 
-{
+{show &&
   (
-    <CustomModal 
+    <ProgramCompletedModal 
     show={show}
      setShow={setShow}/>
   )
 }
+
 </>
   )
 }

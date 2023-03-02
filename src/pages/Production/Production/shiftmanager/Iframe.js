@@ -2,6 +2,7 @@
 import React, {useState} from 'react'
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
+import ProgramCompletedData from './components/ProgramCompletedData';
 // import PartsList from '../ScheduleList/Components/PartsList';
 import TabData from './components/TabData';
 // import Popup from './components/Popup';
@@ -18,7 +19,7 @@ function Iframe() {
       className="mb-3 mt-3 tab_font"
     >
       <Tab eventKey="tabdata" title="Programs Completed">
-      <TabData/>
+      <ProgramCompletedData/>
       </Tab>
 
       <Tab eventKey="Programs Processing" title="Programs Processing">

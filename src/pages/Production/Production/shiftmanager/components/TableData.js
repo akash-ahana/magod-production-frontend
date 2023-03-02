@@ -6,7 +6,7 @@ export default function TableData({processdataList,selectedRowFn,selectRow}) {
     <div className='row mt-1'>
     <div className='col-md-12 col-sm-12' style={{paddingRight:'462px', paddingBottom:'23px'}}>
      <div style={{height:"200px",overflowY: "scroll"}}>
-     <Table bordered>
+     <Table bordered style={{border:'1px solid grey'}}>
        <thead style={{textAlign:"center"}}>
          <tr>
            <th>DWG Name</th>

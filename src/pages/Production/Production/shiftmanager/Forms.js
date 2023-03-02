@@ -23,27 +23,27 @@ function Forms() {
                 <div className="box mb-3" style={{width:'438px', marginRight:'-67px'}}>
 
             <div className="col-md-9 ">
-                <label className="">Date</label>
+                <label className="form-label">Date</label>
                 <input className="in-field" type="date"/>
             </div>
 
             <div className="col-md-9 ">
-                <label className="">Shift</label>
+                <label className="form-label">Shift</label>
                 <input className="in-field" type="text"/>
             </div>
 
             <div className="col-md-9 ">
-                <label className="">From</label>
+                <label className="form-label">From</label>
                 <input className="in-field" type="time"/>
             </div>
 
             <div className="col-md-9 ">
-                <label className="">To</label>
+                <label className="form-label">To</label>
                 <input className="in-field" type="time"/>
             </div>
 
             <div className="col-md-9 ">
-                <label className="">In Charge</label>
+                <label className="form-label">In Charge</label>
                 <input className="in-field" type="text"/>
             </div>
 
@@ -85,13 +85,13 @@ function Forms() {
 
             <div className="box01">
             <div className="mb-3" style={{paddingLeft: '2px', width: '536px' }}> 
-                <label htmlFor="myBox" className="form-label tab_font">Shift Instructions</label>
-                <textarea className="form-control sticky-top" rows='8' id="" value={text} onChange={handleOnChange} style={{height:'221px', resize:'none'}}></textarea>
+                <label htmlFor="myBox" className="form-title tab_font mb-2">Shift Instructions</label>
+                <textarea className="form-control sticky-top" rows='8' id="" value={text} onChange={handleOnChange} style={{height:'256px', resize:'none'}}></textarea>
                 </div>
             </div>
 
             <div className="form-title tab_font" style={{paddingTop:'6px', paddingLeft:'20px'}}>
-                <h5>Grouping Actions</h5>
+                <h5 className="form-title">Grouping Actions</h5>
             <div className="col-md-0">
               <div className="col-md-12" style={{display:"flex",gap:"5px"}}>
                 <label className="" style={{paddingRight:'4px'}}> By Machines</label>

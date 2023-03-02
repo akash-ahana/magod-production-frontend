@@ -1,19 +1,10 @@
 import React from 'react'
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import Popup from '../components/Popup';
+import { Button, Modal } from 'react-bootstrap';
 import TableData from '../components/TableData';
 
-export default function CustomModal({show, setShow}) {
+export default function ProgramCompletedModal({show, setShow}) {
 
-  const [popup , setPopup] = React.useState(false);
-
-   const handleClose = () => setShow(false);
-
-   const handleOpen = ()=>{
-    setPopup(true);
-    setShow(false);
-  }
+    const handleClose = () => setShow(false);
 
   return (
     <div>
@@ -85,8 +76,8 @@ export default function CustomModal({show, setShow}) {
               </div>
 
               <div className="col-md-2 mt-2">
-              <Button variant="secondary" onClick={handleOpen}>
-               Change Machine
+              <Button variant="secondary" onClick={handleClose}>
+               Close Program
               </Button>
               </div>
 
@@ -108,24 +99,9 @@ export default function CustomModal({show, setShow}) {
           </div>
         </div>
         </Modal.Body>
-        {/* <Modal.Footer>
-        <Button variant="primary" type='submit'>
-            Clear Parts 
-          </Button>
-          <Button variant="secondary" onClick={handleOpen}>
-            Close Program
-          </Button>
-        </Modal.Footer> */}
+
         <TableData/>
       </Modal>
-
-{ 
-  (
-    <Popup 
-    popup={popup}
-     setPopup={setPopup}/>
-  )
-}
     </div>
   )
 }
