@@ -1,242 +1,55 @@
-import React from 'react';
-import Tables from "../../../../components/Tables";
+import React,{useEffect,useState} from 'react';
 import Table from "react-bootstrap/Table";
-import {Schedulelistdata1} from './ScheduleListdata';
-import NavTab from "./Components/NavTab"
+import { useGlobalContext } from '../../../../Context/Context';
 
-export default function ScheduleListtable() {
 
-    const getHeadings1 = () => {
-        return Object.keys(Schedulelistdata1[0]);
-      };
+export default function ScheduleListtable({rowSelectFun,rowselect,getprocessTabledata}) {
+  const{schedulelistdata,getSchedulistdata}=useGlobalContext();
 
-      
+  useEffect(() => {
+    getSchedulistdata();
+ }, []);
+
+
+  
   return (
-    <div className='row mt-4'>
-    <div className='col-md-6 col-sm-12 mt-3'>
      <div style={{height:"500px",overflowY: "scroll"}}>
      <Table bordered>
        <thead style={{textAlign:"center"}}>
          <tr>
-           <th></th>
            <th>Select</th>
            <th>Schedule No</th>
            <th>Customer</th>
            <th>TgtDelDate</th>
+           <th>Delivery_date</th>
+           <th>Status</th>
          </tr>
        </thead>
 
-       <tbody className='tablebody'>
-         <tr>
-           <td></td>
+
+    {schedulelistdata.map((item,key)=>{
+      return(
+        <>
+        <tbody className='tablebody'>
+         <tr onClick={()=>rowSelectFun(item,key)} className={key===rowselect?.index? 'selcted-row-clr':'' } >
            <td>
                 <input className="form-check-input"
                  type="checkbox"
                  value=""
                  id="flexCheckDefault"/>
            </td>
-           <td>345678</td>
-           <td>CRYSTAL ENGINEERING SYSTEM</td>
-           <td>2 October</td>
+           <td>{item.OrdSchNo}</td>
+           <td>{item.Cust_name}</td>
+           <td>{item.schTgtDate}</td>
+           <td>{item.Delivery_Date}</td>
+           <td>{item.Schedule_Status}</td>
          </tr>
-
-         <tr>
-           <td></td>
-           <td>
-                <input className="form-check-input"
-                 type="checkbox"
-                 value=""
-                 id="flexCheckDefault"/>
-           </td>
-           <td>367789</td>
-           <td>UNIT ALFHA</td>
-           <td>4 October</td>
-         </tr>
-
-
-         <tr>
-           <td></td>
-           <td>
-                <input className="form-check-input"
-                 type="checkbox"
-                 value=""
-                 id="flexCheckDefault"/>
-           </td>
-           <td>123456</td>
-           <td>WIPRO ENTERPRISE LIMITED</td>
-           <td>26 December</td>
-         </tr>
-
-         <tr>
-           <td></td>
-           <td>
-                <input className="form-check-input"
-                 type="checkbox"
-                 value=""
-                 id="flexCheckDefault"/>
-           </td>
-           <td>367789</td>
-           <td>UNIT ALFHA</td>
-           <td>4 October</td>
-         </tr>
-
-         <tr>
-           <td></td>
-           <td>
-                <input className="form-check-input"
-                 type="checkbox"
-                 value=""
-                 id="flexCheckDefault"/>
-           </td>
-           <td>367789</td>
-           <td>UNIT ALFHA</td>
-           <td>4 October</td>
-         </tr>
-
-         <tr>
-           <td></td>
-           <td>
-                <input className="form-check-input"
-                 type="checkbox"
-                 value=""
-                 id="flexCheckDefault"/>
-           </td>
-           <td>367789</td>
-           <td>UNIT ALFHA</td>
-           <td>4 October</td>
-         </tr>
-
-         <tr>
-           <td></td>
-           <td>
-                <input className="form-check-input"
-                 type="checkbox"
-                 value=""
-                 id="flexCheckDefault"/>
-           </td>
-           <td>367789</td>
-           <td>UNIT ALFHA</td>
-           <td>4 October</td>
-         </tr>
-
-         <tr>
-           <td></td>
-           <td>
-                <input className="form-check-input"
-                 type="checkbox"
-                 value=""
-                 id="flexCheckDefault"/>
-           </td>
-           <td>367789</td>
-           <td>UNIT ALFHA</td>
-           <td>4 October</td>
-         </tr>
-
-         <tr>
-           <td></td>
-           <td>
-                <input className="form-check-input"
-                 type="checkbox"
-                 value=""
-                 id="flexCheckDefault"/>
-           </td>
-           <td>367789</td>
-           <td>UNIT ALFHA</td>
-           <td>4 October</td>
-         </tr>
-
-         <tr>
-           <td></td>
-           <td>
-                <input className="form-check-input"
-                 type="checkbox"
-                 value=""
-                 id="flexCheckDefault"/>
-           </td>
-           <td>367789</td>
-           <td>UNIT ALFHA</td>
-           <td>4 October</td>
-         </tr>
-
-         <tr>
-           <td></td>
-           <td>
-                <input className="form-check-input"
-                 type="checkbox"
-                 value=""
-                 id="flexCheckDefault"/>
-           </td>
-           <td>367789</td>
-           <td>UNIT ALFHA</td>
-           <td>4 October</td>
-         </tr>
-
-         <tr>
-           <td></td>
-           <td>
-                <input className="form-check-input"
-                 type="checkbox"
-                 value=""
-                 id="flexCheckDefault"/>
-           </td>
-           <td>367789</td>
-           <td>UNIT ALFHA</td>
-           <td>4 October</td>
-         </tr>
-
-         <tr>
-           <td></td>
-           <td>
-                <input className="form-check-input"
-                 type="checkbox"
-                 value=""
-                 id="flexCheckDefault"/>
-           </td>
-           <td>367789</td>
-           <td>UNIT ALFHA</td>
-           <td>4 October</td>
-         </tr>
-
-        <tr>
-           <td></td>
-           <td>
-                <input className="form-check-input"
-                 type="checkbox"
-                 value=""
-                 id="flexCheckDefault"/>
-           </td>
-           <td>367789</td>
-           <td>UNIT ALFHA</td>
-           <td>4 October</td>
-         </tr>
-
-        <tr>
-           <td></td>
-           <td>
-                <input className="form-check-input"
-                 type="checkbox"
-                 value=""
-                 id="flexCheckDefault"/>
-           </td>
-           <td>367789</td>
-           <td>UNIT ALFHA</td>
-           <td>4 October</td>
-        </tr>
    </tbody>
+        </>
+      )
+    })}
  </Table>
-     </div>
- </div>
 
- <div className="col-md-6 col-sm-12">
- <div className="col-md-12 col-sm-12 mt-3">
-       <div
-         className="table-data"
-         style={{overflowY: "scroll" }}>
-          <Tables theadData={getHeadings1()} tbodyData={Schedulelistdata1} />
-        </div>
      </div>
-     <div> <NavTab/></div>
- </div>
-</div>
   )
 }

@@ -4,8 +4,10 @@ import Tabs from "react-bootstrap/Tabs";
 import PartsList from "./PartsList";
 import ProgramList from "./ProgramList";
 
-function NabTab() {
+function NabTab({taskno}) {
   const [key, setKey] = useState("partlist");
+
+  
 
   return (
     <Tabs
@@ -15,11 +17,11 @@ function NabTab() {
       className="mb-3 mt-3 tab_font"
     >
       <Tab eventKey="partlist" title="Parts List">
-        <PartsList/>
+        <PartsList taskno={taskno}/>
       </Tab>
 
       <Tab eventKey="programlist" title="Program List">
-        <ProgramList/>
+        <ProgramList taskno={taskno}/>
       </Tab>
     </Tabs>
   );

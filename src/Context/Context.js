@@ -13,6 +13,17 @@ const SnackbarContext = React.createContext({
 
 const AuthProvider = ({ children }) => {
   const [post, setPost] = React.useState([]);
+  const [schedulelistdata,setSchedulelistdata]=useState([])
+  const [schedulelistdatas,setSchedulelistdatas]=useState([])
+
+
+  const getSchedulistdata=()=>{
+    axios.get("http://172.16.20.61:5000/scheduleListProfile/schedulesList").then((response) => {
+          setSchedulelistdata(response.data); 
+          setSchedulelistdatas(response.data);
+          // console.log(response.data)
+        });
+  }
 
 
   const MachineTabledata=()=>{
@@ -26,7 +37,8 @@ const AuthProvider = ({ children }) => {
   return (
     <AppContext.Provider
       value={{
-        post,setPost, MachineTabledata,
+        post,setPost,MachineTabledata,schedulelistdata,setSchedulelistdata,
+        getSchedulistdata,schedulelistdatas,setSchedulelistdatas
       }}
     >
       {children}

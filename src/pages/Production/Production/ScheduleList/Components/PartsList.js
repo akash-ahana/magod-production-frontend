@@ -1,14 +1,29 @@
-import React from 'react';
-import {Schedulelistdata2} from '../ScheduleListdata';
-import Tables from "../../../../../components/Tables";
+import React,{useState,useEffect} from 'react';
+import { Table } from 'react-bootstrap';
+import axios from "axios";
 
 
-export default function PartsList(){
+export default function PartsList({taskno}){
+  // console.log(taskno);
 
-    const getHeadings2 = () => {
-        return Object.keys(Schedulelistdata2[0]);
-      };
-    
+  //Process Table(Right First table) data
+  const[partlistdata,setPartlistdata]=useState([])
+  const getpartslistdata=()=>{
+   axios.post(
+     "http://172.16.20.61:5000/scheduleListProfile/schedulesListPartsList",
+     {
+      TaskId :taskno
+     }).then((response) => {
+      setPartlistdata(response.data);
+   });
+  } 
+
+  useEffect(() => {
+    getpartslistdata();
+ }, [taskno]);
+
+//  console.log(partlistdata);
+ 
   return (
     <div>
         <div className="row mt-2">
@@ -27,13 +42,68 @@ export default function PartsList(){
               Save Cleared
             </button>
         </div>    
-        <div className="col-md-12 col-sm-12 mt-3">
-          <div
-            className="table-data"
-            style={{overflowY: "scroll" }}>
-            <Tables theadData={getHeadings2()} tbodyData={Schedulelistdata2} />
-          </div>
-        </div>
+        <div  className='mt-4' style={{height:"200px",overflowY: "scroll"}}>
+     <Table bordered>
+       <thead style={{textAlign:"center"}}>
+         <tr>
+           <th>DwgName</th>
+           <th>Programed</th>
+           <th>Produced</th>
+           <th>Cleared</th>
+           <th>Task_Part_ID</th>
+           <th>NcTaskId</th>
+           <th>TaskNo</th>
+           <th>SchDetailsId</th>
+           <th>PartId</th>  
+           <th>QtyToNest</th>
+           <th>QtyCleared</th>
+           <th>QtyProduced</th>
+           <th>QtyNested</th>
+           <th>Remarks</th>
+           <th>LOC</th>
+           <th>Pierces</th>
+           <th>Part_Area</th>
+           <th>Unit_Wt</th>
+           <th>HasBOM</th>
+           <th>QtnDetailId</th>
+         </tr>
+       </thead>
+
+       {partlistdata.map((item,key)=>{
+        return(
+          <>
+          <tbody className='tablebody'>
+         <tr>
+           <td>{item.DwgName}</td>
+           <td>{item.QtyProgrammed}</td>
+           <td>{item.QtyProduced}</td>
+           <td>{item.QtyCleared}</td>
+           <td>{item.Task_Part_ID}</td>
+           <td>{item.NcTaskId}</td>
+           <td>{item.TaskNo}</td>
+           <td>{item.SchDetailsId}</td>
+           <td>{item.PartID}</td>
+           <td>{item.QtyToNest}</td>
+           <td>{item.QtyCleared}</td>
+           <td>{item.QtyProduced}</td>
+           <td>{item.QtyNested}</td>
+           <td>{item.Remarks}</td>
+           <td>{item.LOC}</td>
+           <td>{item.Pierces}</td>
+           <td>{item.Part_Area}</td>
+           <td>{item.UnitWt}</td>
+           <td><input className="form-check-input"
+                 type="checkbox"
+                 value=""
+                 id="flexCheckDefault"/></td>
+           <td></td>
+         </tr>
+   </tbody>
+          </>
+        )
+       })}
+ </Table>
+     </div>
     </div>
   )
 }
