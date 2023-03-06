@@ -5,6 +5,9 @@ import Tabs from 'react-bootstrap/Tabs';
 import ProgramCompletedData from './components/ProgramCompletedData';
 // import PartsList from '../ScheduleList/Components/PartsList';
 import TabData from './components/TabData';
+// import MachineLogSideTable from './programpath/MachineLogSideTable';
+import MachineLogTable from './programpath/MachineLogTable';
+import ProductionTaskListTable from './programpath/ProductionTaskListTable';
 // import Popup from './components/Popup';
 
 function Iframe() {
@@ -27,15 +30,15 @@ function Iframe() {
       </Tab>
 
       <Tab eventKey="Machine Log" title="Machine Log">
-      <TabData/>
+        <MachineLogTable/>
       </Tab>
 
       <Tab eventKey="Production Task List" title="Production Task List">
-      <TabData/>
+      <ProductionTaskListTable/>
       </Tab>
 
-      <Tab eventKey="Shift Report" title="Shift Report">
-      <TabData/>
+      <Tab eventKey="Shift Report" title="Shift Report" style={{textAlign:"center"}}>
+      <h5>Page Under Production</h5>
       </Tab>
     </Tabs>
     </div>
