@@ -1,20 +1,26 @@
-
 import React, {useState} from 'react'
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import ProgramCompletedData from './components/ProgramCompletedData';
-// import PartsList from '../ScheduleList/Components/PartsList';
+import ByMachineBox from './components/ByMachineBox';
 import TabData from './components/TabData';
-// import MachineLogSideTable from './programpath/MachineLogSideTable';
 import MachineLogTable from './programpath/MachineLogTable';
 import ProductionTaskListTable from './programpath/ProductionTaskListTable';
-// import Popup from './components/Popup';
+import ByOperations from './components/ByOperations';
+import ByCustomer from './components/ByCustomer';
 
-function Iframe() {
+function Iframe({isToggled, isClick, isCustomer}) {
     const [key, setKey] = useState("tabdata");
 
   return (
-    <div style={{marginLeft: '637px'}}>
+    <>
+    <div className="d-flex">
+    <div className="box01 mt-1">
+      {isToggled && <ByMachineBox/>}
+      {isClick && <ByOperations/>}
+      {isCustomer && <ByCustomer/>}
+    </div>
+    <div style={{marginLeft: '50px'}}>
       <Tabs
       id="controlled-tab-example"
       activeKey={key}
@@ -37,11 +43,13 @@ function Iframe() {
       <ProductionTaskListTable/>
       </Tab>
 
-      <Tab eventKey="Shift Report" title="Shift Report" style={{textAlign:"center"}}>
-      <h5>Page Under Production</h5>
+      <Tab eventKey="Shift Report" title="Shift Report">
+      <ByMachineBox/>
       </Tab>
     </Tabs>
     </div>
+    </div>
+    </>
   )
 }
 

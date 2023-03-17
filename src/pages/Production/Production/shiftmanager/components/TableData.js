@@ -5,7 +5,7 @@ export default function TableData({processdataList,selectedRowFn,selectRow}) {
   return (
     <div className='row mt-1'>
     <div className='col-md-12 col-sm-12' style={{paddingRight:'462px', paddingBottom:'23px'}}>
-     <div style={{height:"200px",overflowY: "scroll"}}>
+     <div style={{height:"200px",width:'690px',overflowY: "scroll", overflowX:'scroll'}}>
      <Table bordered style={{border:'1px solid grey'}}>
        <thead style={{textAlign:"center"}}>
          <tr>

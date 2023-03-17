@@ -22,7 +22,7 @@ export default function ProgramCompletedData() {
 
     <div className='row mt-3'>
     <div className='col-md-12 col-sm-12'>
-     <div style={{height:"200px",overflowY: "scroll"}}>
+     <div style={{height:"200px",overflowY: "scroll",overflowX:'scroll', width:'800px'}}>
      <Table bordered style={{border:'1px solid grey'}}>
        <thead style={{textAlign:"center"}}>
          <tr>
@@ -33,8 +33,8 @@ export default function ProgramCompletedData() {
            <th>Plan Time</th>
            <th>Actual Time</th>
            <th>QTY</th>
-           <th>Allowed</th>
-           <th>Proccessr</th>
+           <th>Allotted</th>
+           <th>Processed</th>
          </tr>
        </thead>
 

@@ -5,24 +5,26 @@ import MachineLogSideTable from './MachineLogSideTable'
 export default function MachineLogTable() {
   return (
     <>
-    <div className="box01" style={{display:'flex'}}>
+    <div className="d-flex">
     <div className="box" style={{width:'205px'}}>
         <MachineLogSideTable/>
     </div>
 
     <div className='row mt-1'>
     <div className='col-md-12 col-sm-12'>
-     <div style={{height:"200px",overflowY: "scroll", overflowX:"scroll"}}>
+     <div style={{height:"200px",overflowY: "scroll", overflowX:"scroll",width:'570px'}}>
      <Table bordered style={{border:'1px solid grey'}} >
        <thead style={{textAlign:"center"}}>
          <tr>
-           <th>Process</th>
-           <th>From Time</th>
-           <th>To Time</th>
-           <th>Running Time</th>
+           <th>Processed</th>
+           <th>FromTime</th>
+           <th>ToTime</th>
+           <th>RunningTime</th>
            <th>Program</th>
            <th>Operation</th>
-           <th>Reset</th>
+           <th>Remarks</th>
+           <th>Locked</th>
+           <th>Operator</th>
            {/* <th>Abc</th>
            <th>Xyz</th> */}
          </tr>

@@ -108,14 +108,6 @@ export default function CustomModal({show, setShow}) {
           </div>
         </div>
         </Modal.Body>
-        {/* <Modal.Footer>
-        <Button variant="primary" type='submit'>
-            Clear Parts 
-          </Button>
-          <Button variant="secondary" onClick={handleOpen}>
-            Close Program
-          </Button>
-        </Modal.Footer> */}
         <TableData/>
       </Modal>
 
