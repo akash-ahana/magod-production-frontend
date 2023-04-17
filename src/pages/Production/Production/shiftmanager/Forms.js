@@ -1,5 +1,8 @@
 import React,{useState} from 'react'
-import Iframe from './Iframe'
+// import Iframe from './Iframe'
+import ByMachineBox from './components/ByMachineBox';
+import ByOperations from './components/ByOperations';
+import ByCustomer from './components/ByCustomer';
 
 function Forms() {
 
@@ -7,6 +10,10 @@ function Forms() {
     const [isToggled, setIsToggled] = useState(true);
     const [isClick, setIsClick] = useState(false);
     const [isCustomer, setIsCustomer] = useState(false);
+
+    const current = new Date();
+    const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
+
 
     const handleOnChange = (event)=>{
         setText(event.target.value);
@@ -33,45 +40,45 @@ function Forms() {
   return (
     <>
     <div className='bg-light'>
-        <div className="my-0" style={{margin: '40px'}}>
+        <div className="my-0">
 
-            <div className='row'>
+            {/* <div className='row'>
                 <h5 className=" bg-light form-title">Shift In Charge Monitoring Form</h5>
-            </div>
+            </div> */}
 
             <form className='d-flex'>
-            <div className="box mb-3" style={{width:'438px', marginRight:'-67px'}}>
+            <div className="col-md-12 mb-3" style={{width:'300px', marginRight:'-60px'}}>
 
-            <div className="col-md-9 ">
+            <div className="col-md-9">
                 <label className="form-label">Date</label>
-                <input className="in-field" type="date" style={{marginTop:'-3px'}} disabled/>
+                <input className="in-field bg-light" style={{marginTop:'-7px'}} value={date}/>
             </div>
 
-            <div className="col-md-9 ">
+            <div className="col-md-9">
                 <label className="form-label">Shift</label>
-                <input className="in-field" type="text" style={{marginTop:'-10px'}} disabled/>
+                <input className="in-field bg-light" type="text" style={{marginTop:'-14px'}} disabled/>
             </div>
 
-            <div className="col-md-9 ">
+            <div className="col-md-9">
                 <label className="form-label">From</label>
-                <input className="in-field" type="time" style={{marginTop:'-6px'}} disabled/>
+                <input className="in-field bg-light" type="time" style={{marginTop:'-10px'}} disabled/>
             </div>
 
             <div className="col-md-9 ">
                 <label className="form-label">To</label>
-                <input className="in-field" type="time" style={{marginTop:'-7px'}} disabled/>
+                <input className="in-field bg-light" type="time" style={{marginTop:'-10px'}} disabled/>
             </div>
 
             <div className="col-md-9 ">
                 <label className="form-label">In Charge</label>
-                <input className="in-field" type="text" style={{marginTop:'-6px'}} disabled/>
+                <input className="in-field bg-light" type="text" style={{marginTop:'-12px'}} disabled/>
             </div>
-            </div>
+            </div>    
 
-            <div className="bg-light box01">
-            <div className="mb-3" style={{paddingLeft: '2px', width: '536px' }}> 
-                <label htmlFor="myBox" className="bg-ligh tform-title tab_font mb-2">Shift Instructions</label>
-                <textarea className="form-control sticky-top" rows='8' id="" value={text} onChange={handleOnChange} style={{height:'218px', resize:'none'}} disabled></textarea>
+            <div className="bg-light">
+                <div className="mb-3" style={{paddingLeft: '2px', width: '450px' }}> 
+                    <label htmlFor="myBox" className="bg-ligh tform-title tab_font mb-2">Shift Instructions</label>
+                    <textarea className="form-control sticky-top" rows='8' id="" value={text} onChange={handleOnChange} style={{height:'201px', resize:'none'}} disabled></textarea>
                 </div>
             </div>
 
@@ -99,9 +106,17 @@ function Forms() {
             </form>
      </div>
     </div>
-    <Iframe isToggled={isToggled} isClick={isClick} isCustomer={isCustomer}/>
+    <div>
+     <div className="box01 mt-1">
+      {isToggled && <ByMachineBox/>}
+      {isClick && <ByOperations/>}
+      {isCustomer && <ByCustomer/>}
+     </div>
+    </div>
+    {/* <Iframe isToggled={isToggled} isClick={isClick} isCustomer={isCustomer}/> */}
     </>
   )
 }
 
 export default Forms
+     

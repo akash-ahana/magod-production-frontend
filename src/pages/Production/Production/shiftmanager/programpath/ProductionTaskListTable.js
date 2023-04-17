@@ -15,7 +15,7 @@ export default function ProductionTaskListTable() {
            <th>CustMtrl</th>
            <th>NoOfSheets</th>
            <th>NoOfDwgs</th>
-           <th>DwgsNo</th>
+           {/* <th>DwgsNo</th> */}
            <th>DwgsNested</th>
            <th>PartsNested</th>
            <th>TotalParts</th>

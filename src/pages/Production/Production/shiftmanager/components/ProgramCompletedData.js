@@ -2,14 +2,14 @@ import React from 'react'
 import { Table } from 'react-bootstrap'
 import ProgramCompletedModal from '../programpath/ProgramCompletedModal';
 
-export default function ProgramCompletedData() {
+export default function ProgramCompletedData({machineProgramesCompleted}) {
 
     const [show, setShow] = React.useState(false);
 
     const handaleClick =()=>{
         setShow(true);
      }
-
+     console.log(' data from program compleated table component ' , machineProgramesCompleted)
   return (
     <>
     <div>
@@ -38,21 +38,25 @@ export default function ProgramCompletedData() {
          </tr>
        </thead>
 
-{/* {processdataList.map((item,key)=>{
+{machineProgramesCompleted && machineProgramesCompleted.map((item,key)=>{
   return(
     <>
     <tbody className='tablebody'>
-          <tr onClick={()=>selectedRowFn(item,key)} className={key===selectRow?.index? 'selcted-row-clr':'' }>
-             <td>{item.Mprocess}</td>
-             <td>{item.TgtRate}</td>
-             <td>{item.Id}</td>
-             <td>{item.Machine_srl}</td>
-             <td>{item.RefProcess}</td>
+          <tr>
+             <td>{item.TaskNo}</td>
+             <td>{item.Machine}</td>
+             <td>{item.Operation}</td>
+             <td>{item.NCProgramNo}</td>
+             <td>{item.EstimatedTime}</td>
+             <td>{item.ActualTime}</td>
+             <td>{item.Qty}</td>
+             <td>{item.QtyAllotted}</td>
+             <td>{item.QtyCut}</td>
          </tr>
     </tbody>
     </>
   )
-})} */}
+})}
  </Table>
      </div>
  </div>

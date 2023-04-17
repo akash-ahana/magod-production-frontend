@@ -1,6 +1,7 @@
 import React from 'react'
 import TreeView from "react-treeview";
 import "react-treeview/react-treeview.css";
+import Iframe from '../Iframe';
 
 export default function ByCustomer() {
 
@@ -42,8 +43,8 @@ export default function ByCustomer() {
     ];
 
   return (
-    <div className="MainDiv" style={{ height: "323px", width:'650px',overflowX:'scroll',overflowY:'scroll'}}>
-    <div className="container">
+    <div className="d-flex" style={{ height: "323px"}}>
+    <div className=""  style={{ height: "323px", width:'330px',overflowX:'scroll',overflowY:'scroll'}}>
       {dataSource.map((node, i) => {
         const type = node.type;
         const label = <span className="node">{type}</span>;
@@ -70,6 +71,9 @@ export default function ByCustomer() {
           </TreeView>
         );
       })}
+    </div>
+    <div>
+      <Iframe/>
     </div>
   </div>
   )

@@ -8,7 +8,7 @@ export default function ProgramCompletedModal({show, setShow}) {
 
   return (
     <div>
-      <Modal size='xl' show={show} onHide={handleClose}>
+      <Modal size='lg' show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Program Parts Inspection Form</Modal.Title>
         </Modal.Header>
@@ -75,9 +75,9 @@ export default function ProgramCompletedModal({show, setShow}) {
                  <input  className='in-field' />
               </div>
 
-              <div className="col-md-2 mt-2">
+              <div className="col-md-2 mt-2" style={{padding:'0'}}>
               <Button variant="secondary" onClick={handleClose}>
-               Close Program
+               CloseProgram
               </Button>
               </div>
 
